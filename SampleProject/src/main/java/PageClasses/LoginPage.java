@@ -15,6 +15,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class LoginPage extends BaseClass {
 
 	public WebDriver driver = null;
+	private static LoginPage loginInstance = null;
 
 	public LoginPage() throws IOException {
 		super();
@@ -24,6 +25,15 @@ public class LoginPage extends BaseClass {
 
 		}
 	}
+
+	
+	
+	 public static LoginPage getInstance() throws IOException{
+	        if(loginInstance==null){
+	        	loginInstance = new LoginPage();
+	        }
+	        return loginInstance;
+	    }
 
 	public HomePage login(String userName, String password) throws IOException,
 			InterruptedException {

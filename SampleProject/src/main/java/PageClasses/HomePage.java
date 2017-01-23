@@ -1,27 +1,34 @@
 package PageClasses;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import utility.BaseClass;
 import utility.BrowserFactory;
-import static org.hamcrest.number.OrderingComparison.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
 import Tests.Test1;
 
-public class HomePage extends BaseClass {
+public class HomePage extends BasePage {
 
 	public WebDriver driver = null;
 	private static Logger Log = Logger.getLogger(Test1.class.getName());
+	private static HomePage homeInstance = null;
+	
+	String compose = propOR.getProperty("compose");
+	String sendTo = propOR.getProperty("sendTo");
+	String subject = propOR.getProperty("subjectbox");
+	String messageBody = propOR.getProperty("messageBody");
+	String sendBtn = propOR.getProperty("sendBtn");
+	
 
 	public HomePage() throws IOException {
 		super();
@@ -31,9 +38,19 @@ public class HomePage extends BaseClass {
 
 		}
 	}
+	
+	
+	 public static HomePage getInstance() throws IOException{
+	        if(homeInstance==null){
+	        	homeInstance = new HomePage();
+	        }
+	        return homeInstance;
+	    }
 
 	public HomePage composeMail(String recipient, String text)
 			throws IOException {
+		
+		
 
 		WebDriverWait wdWait = new WebDriverWait(driver, 15);
 		wdWait.until(ExpectedConditions.elementToBeClickable(By
